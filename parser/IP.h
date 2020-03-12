@@ -42,6 +42,23 @@ class IP {
             }
             return out;
         }
+
+        bool Equal(IP x) {
+            if(ip.size() == x.ip.size()) {
+                return equal(ip, x.ip);
+            }
+            if(ip.size() == IPv4len && x.ip.size() == IPv6len) {
+                vector <byte> xNew1(x.ip.begin(), x.ip.begin() + 12);
+                vector <byte> xNew2(x.ip.begin() + 12, x.ip.end());
+                return equal(xNew1, v4InV6Prefix) && equal(ip, xNew2);
+            }
+            if(ip.size() == IPv6len && x.ip.size() == IPv4len) {
+                vector <byte> ipNew1(ip.begin(), ip.begin() + 12);
+                vector <byte> ipNew2(ip.begin() + 12, ip.end());
+                return equal(ipNew1, v4InV6Prefix) && equal(ipNew2, x.ip);
+            }
+            return false;
+        }
 };
 
 byte IP :: IPv4len = 4;
