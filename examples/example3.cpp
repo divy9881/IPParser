@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../parser/parseIP.h"
-#include "../parser/IP.h"
+#include "../parser/parseIP.h" // function parseIP()
+#include "../parser/IP.h" // class IP
 
 using namespace std;
 

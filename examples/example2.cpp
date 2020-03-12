@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../parser/parseCIDR.h"
-#include "../parser/CIDR.h"
+#include "../parser/parseCIDR.h" // function parseCIDR()
+#include "../parser/CIDR.h" // class CIDR
 
 using namespace std;
 
