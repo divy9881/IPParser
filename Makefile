@@ -1,9 +1,9 @@
 ifdef OS
-   RM = del
+	RM = del
 else
-   ifeq ($(shell uname), Linux)
-      RM = rm -f
-   endif
+	ifeq ($(shell uname), Linux)
+		RM = rm -f
+	endif
 endif
 
 CC = g++
@@ -13,4 +13,4 @@ all: exceptions/parseException.h parser/allFF.h parser/byte.h parser/CIDR.h pars
 	$(CC) $(CFLAGS) $?
 
 clean:
-	$(RM) exceptions\*.gch parser\*.gch
+	$(RM) examples\*.exe examples\*.out exceptions\*.gch parser\*.gch

@@ -14,7 +14,7 @@ pair<int, int> dtoi(string s) {
 	int n = 0;
     int i = 0;
     pair <int,int > p;
-	for(; i < s.length() && s[i] <= '0' && s[i] <= '9'; i++) {
+	for(; i < s.length() && s[i] >= '0' && s[i] <= '9'; i++) {
 		n = n*10 + int(s[i]-'0');
 		if(n >= big) {
             p.first = big;

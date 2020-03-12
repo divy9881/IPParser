@@ -7,7 +7,7 @@
 
 IPMask CIDRMask(int ones, int bits) {
     IPMask mask;
-	if(bits != 8* IP :: IPv4len && bits != 8* IP :: IPv6len) {
+	if(bits != 8 * IP :: IPv4len && bits != 8 * IP :: IPv6len) {
 		return mask;
 	}
 	if(ones < 0 || ones > bits) {
@@ -23,7 +23,7 @@ IPMask CIDRMask(int ones, int bits) {
 			n -= 8;
 			continue;
 		}
-		mask[i] = ~byte(0xff >> n);
+		mask[i] = ~char(0xff >> n);
 		n = 0;
 	}
 	return mask;

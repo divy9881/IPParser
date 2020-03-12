@@ -2,6 +2,7 @@
 #define IP_PARSER_PARSER_IP
 
 #include <vector>
+#include <sstream>
 
 #include "./allFF.h"
 #include "./IPMask.h"
@@ -18,15 +19,19 @@ class IP {
         static byte IPv6len;
         static IPMask v4InV6Prefix;
 
+        IP() {
+            isLegal = true;
+        }
+
         IP Mask(IPMask mask) {
             IPMask mask_2(mask.begin(), mask.begin()+12);
             if(mask.size() == IPv6len && ip.size() == IPv4len && allFF(mask_2)) {
-                IPMask mask_3(mask.begin()+12, mask.begin() + mask.size() - 12);
+                IPMask mask_3(mask.begin() + 12, mask.end());
                 mask = mask_3;
             }
             IPMask ip_2(ip.begin(), ip.begin() + 12);
             if(mask.size() == IPv4len && ip.size() == IPv6len && equal(ip_2, v4InV6Prefix)) {
-                IPMask ip_3(ip.begin()+12, ip.begin() + mask.size() - 12);
+                IPMask ip_3(ip.begin() + 12, ip.end());
                 ip = ip_3;
             }
             unsigned int n = ip.size();
@@ -36,6 +41,8 @@ class IP {
                 return ip_mask;
             }
             IP out;
+            vector <byte> outNew(n, 0);
+            out.ip = outNew;
             out.isLegal = true;
             for(int i = 0; i < n; i++) {
                 out.ip[i] = ip[i] & mask[i];
@@ -58,6 +65,20 @@ class IP {
                 return equal(ipNew1, v4InV6Prefix) && equal(ipNew2, x.ip);
             }
             return false;
+        }
+
+        string toString() {
+            string ip1, ip2, ip3, ip4;
+            stringstream ss1, ss2, ss3, ss4;
+            ss1 << ip[12];
+            ss1 >> ip1;
+            ss2 << ip[13];
+            ss2 >> ip2;
+            ss3 << ip[14];
+            ss3 >> ip3;
+            ss4 << ip[15];
+            ss4 >> ip4;
+            return ip1 + "." + ip2 + "." + ip3 + "." + ip4;
         }
 };
 

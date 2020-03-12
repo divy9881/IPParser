@@ -11,8 +11,7 @@
 using namespace std;
 
 IP parseIPv4(string s) {
-	// var p [IPv4len]byte
-    vector <byte> pb;
+    vector <byte> pb(IP :: IPv4len, 0);
     IP ipv4;
 	for(int i = 0; i < IP :: IPv4len ; i++) {
 		if(s.length() == 0) {
@@ -35,7 +34,7 @@ IP parseIPv4(string s) {
         s = s.substr(p.second, s.length() - p.second);
 		pb[i] = p.first;
 	}
-	if(s.length()!= 0) {
+	if(s.length() != 0) {
 		ipv4.isLegal = false;
 		return ipv4;
 	}
