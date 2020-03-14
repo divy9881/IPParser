@@ -43,7 +43,6 @@ class IPNet {
         // Contains reports whether the network includes ip.
         bool contains(IP ipNew) {
             pair<IP, IPMask> p = networkNumberAndMask(*this);
-            // nn, m := networkNumberAndMask(n)
             IP x;
             x = ipNew.To4();
             if(x.isLegal == true) {
@@ -63,8 +62,9 @@ class IPNet {
 
         static pair<IP, IPMask> networkNumberAndMask(IPNet n) {
             IP newIp;
-            pair <IP, IPMask> p;
             newIp = n.net_ip.To4();
+            pair <IP, IPMask> p;
+            p.first = newIp;
             if(newIp.isLegal == false) {
                 newIp = n.net_ip;
                 if(newIp.ip.size() != IP :: IPv6len) {
@@ -72,27 +72,25 @@ class IPNet {
                     return p;
                 }
             }
-
             IPMask m = n.mask;
+            p.second = m;
             const byte ipv4len = IP :: IPv4len;
             const byte ipv6len = IP :: IPv6len;
-
             if(m.size() == ipv4len){
                 if(newIp.ip.size() != IP :: IPv4len) {
                     p.first.isLegal = false;
-                    return p;
                 }
             } else if(m.size() == ipv6len){
                 if(newIp.ip.size() == IP :: IPv4len) {
                     IPMask newM(m.begin() + 12, m.end());
                     m = newM;
+                    p.first = newIp;
                     p.second = m;
-                    return p;
                 }
             } else {
                 p.first.isLegal = false;
-                return p;
             }
+            return p;
         }
 
 };

@@ -8,7 +8,6 @@
 #include "./IPMask.h"
 #include "./equal.h"
 #include "./byte.h"
-// #include "./isZeros.h"
 
 using namespace std;
 
@@ -89,7 +88,7 @@ class IP {
                 return *this;
             }
             IP ipNew;
-            vector <byte> ipN (ip.begin(), ip.begin() + 12);
+            vector <byte> ipN (ip.begin(), ip.begin() + 10);
             ipNew.ip = ipN;
             if(ip.size() == IPv6len && isZeros(ipNew) && ip[10] == 0xff && ip[11] == 0xff) {
                 IP ipNew2;
