@@ -8,6 +8,7 @@
 #include "./IPMask.h"
 #include "./equal.h"
 #include "./byte.h"
+#include "./isZeroes.h"
 
 using namespace std;
 
@@ -80,6 +81,22 @@ class IP {
             ss4 >> ip4;
             return ip1 + "." + ip2 + "." + ip3 + "." + ip4;
         }
+
+        // To4 converts the IPv4 address ip to a 4-byte representation.
+        // If ip is not an IPv4 address, To4 returns nil.
+        IP To4() {
+            if(ip.size() == IPv4len) {
+                return *this;
+            }
+            IP ipNew(ip.begin(), ip.begin() + 12);
+            if(ip.size() == IPv6len && isZeros(ipNew) && ip[10] == 0xff && ip[11] == 0xff) {
+                vector ipNew2(ip.begin() + 12, ip.begin() + 16);
+                return ipNew2;
+            }
+            this->isLegal = false;
+            return *this;
+        }
+
 };
 
 byte IP :: IPv4len = 4;
