@@ -8,7 +8,7 @@
 #include "./IPMask.h"
 #include "./equal.h"
 #include "./byte.h"
-#include "./isZeroes.h"
+// #include "./isZeros.h"
 
 using namespace std;
 
@@ -88,13 +88,27 @@ class IP {
             if(ip.size() == IPv4len) {
                 return *this;
             }
-            IP ipNew(ip.begin(), ip.begin() + 12);
+            IP ipNew;
+            vector <byte> ipN (ip.begin(), ip.begin() + 12);
+            ipNew.ip = ipN;
             if(ip.size() == IPv6len && isZeros(ipNew) && ip[10] == 0xff && ip[11] == 0xff) {
-                vector ipNew2(ip.begin() + 12, ip.begin() + 16);
+                IP ipNew2;
+                vector <byte> ipN(ip.begin() + 12, ip.begin() + 16);
+                ipNew2.ip = ipN;
                 return ipNew2;
             }
             this->isLegal = false;
             return *this;
+        }
+
+        // Is p all zeros?
+        static bool isZeros(IP p) {
+            for(int i = 0 ; i < p.ip.size() ; i++ ) {
+                if(p.ip[i] != 0) {
+                    return false;
+                }
+            }
+            return true;
         }
 
 };
