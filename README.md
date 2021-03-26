@@ -102,4 +102,4 @@ This project is licensed under the [Apache 2.0 license](LICENSE).
 ## Contact
 
 If you have any issues or feature requests, please contact me. PR is welcomed.
-- https://github.com/DivyPatel9881/IPParser/issues
+- https://github.com/divy9881/IPParser/issues
